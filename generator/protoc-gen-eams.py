@@ -73,6 +73,9 @@ def generate_code(request, respones):
     template_env = jinja2.Environment(loader=template_loader, trim_blocks=True, lstrip_blocks=True)
 
     for fd in file_definitions:
+        if fd.descriptor.package.startswith("google.protobuf"):
+            continue
+
         file_str = fd.render(template_env)
         if file_str:
             f = respones.file.add()

@@ -198,6 +198,10 @@ class MessageDefinition(TypeDefinition):
     # TODO This function will fail to return True if this definitions contains it self as a nested field.
     def register_template_parameters(self):
         self.all_parameters_registered = True
+
+        if self.get_type().startswith("google::protobuf"):
+            return self.all_parameters_registered
+
         # First resolve the template parameters for all nested message definitions.
         for nested_msg in self.nested_msg_definitions:
             self.all_parameters_registered = nested_msg.register_template_parameters() \
