@@ -135,7 +135,7 @@ class ProtoFile:
         imported_dependencies = []
         if self.descriptor.dependency:
             imported_dependencies = [os.path.splitext(dependency)[0] + ".h" for dependency in
-                                     self.descriptor.dependency if "embedded_proto_options.proto" not in dependency]
+                                     self.descriptor.dependency if "embedded_proto_options.proto" not in dependency and not dependency.startswith("google/protobuf")]
         return imported_dependencies
 
     def get_namespaces(self):
@@ -181,4 +181,3 @@ class ProtoFile:
         if self.msg_definitions:
             for msg in self.msg_definitions:
                 msg.print_template_data(indent + "\t")
-
