@@ -110,7 +110,8 @@ class ProtoFile:
             my_scope = ""
             if self.scope:
                 my_scope = "." + self.scope.get_scope_str().replace("::", ".")
-                message_order.remove(my_scope)
+                if message_order.count(my_scope) > 1:
+                    message_order.remove(my_scope)
 
             # Based on the desired order assign each message definition an index.
             for index, msg_name in enumerate(message_order):
@@ -181,4 +182,3 @@ class ProtoFile:
         if self.msg_definitions:
             for msg in self.msg_definitions:
                 msg.print_template_data(indent + "\t")
-
